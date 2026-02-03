@@ -2,230 +2,172 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Another Apology 🤍</title>
+<title>Another Apology</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: 'Quicksand', sans-serif;
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
   background: radial-gradient(circle at top, #0b1a2a, #000);
-  color: #fff;
-  overflow: hidden;
+  color:white;
+  overflow:hidden;
 }
 
-.slide {
-  position: absolute;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 40px;
-  text-align: center;
+.slide{
+  position:absolute;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  padding:30px;
 }
 
-.slide.active {
-  display: flex;
+.slide.active{display:flex;}
+
+.fade{animation:fade 1.5s ease;}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-.fade {
-  animation: fade 2s ease forwards;
+button{
+  padding:12px 26px;
+  border-radius:25px;
+  border:none;
+  background:rgba(255,255,255,0.15);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  margin:10px;
 }
 
-@keyframes fade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+button:hover{background:rgba(255,255,255,0.3);}
+
+/* HEART */
+.heart{
+  position:relative;
+  width:120px;
+  height:120px;
+}
+.heart span{
+  position:absolute;
+  font-size:100px;
+  transition:1.5s;
+}
+.break .left{transform:translateX(-25px) rotate(-15deg);opacity:0.6;}
+.break .right{transform:translateX(25px) rotate(15deg);opacity:0.6;}
+.heal span{transform:translateX(0);opacity:1;}
+
+/* scroll */
+.box{
+  max-height:70vh;
+  overflow-y:auto;
+  background:rgba(0,0,0,0.4);
+  padding:20px;
+  border-radius:15px;
 }
 
-/* doodles */
-.doodle {
-  position: absolute;
-  opacity: 0.15;
-  animation: float 8s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-
-/* buttons */
-button {
-  padding: 12px 26px;
-  border-radius: 30px;
-  border: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: 0.4s;
-}
-
-button:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-/* heart */
-.heart {
-  font-size: 90px;
-  transition: 2s;
-}
-
-.crack {
-  animation: crack 2s forwards;
-}
-
-@keyframes crack {
-  to { transform: scale(0.9); opacity: 0.6; }
-}
-
-.heal {
-  animation: heal 2.5s forwards;
-}
-
-@keyframes heal {
-  from { opacity: 0.6; }
-  to { opacity: 1; transform: scale(1.05); }
-}
-
-/* drifting NO */
-#noBtn {
-  position: relative;
-}
-
-/* scroll page */
-.scrollBox {
-  max-height: 70vh;
-  overflow-y: auto;
-  padding: 25px;
-  background: rgba(0,0,0,0.4);
-  border-radius: 20px;
-  width: 90%;
-  max-width: 600px;
-}
-
-/* mute */
-#mute {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0.7;
-}
+/* no button */
+#noBtn{position:relative;}
 </style>
 </head>
 
 <body>
 
-<div id="mute">🔊</div>
-
-<!-- doodles -->
-<div class="doodle" style="top:10%;left:15%">✨</div>
-<div class="doodle" style="top:20%;right:20%">♡</div>
-<div class="doodle" style="bottom:15%;left:25%">🌙</div>
+<audio id="music" loop></audio>
 
 <!-- SLIDE 1 -->
 <div class="slide active fade" id="s1">
   <h2>another apology letter as i cant handle my gussa</h2>
   <img src="cat1.jpg" style="width:220px;border-radius:20px;margin-top:20px;">
-  <p style="opacity:0.7;margin-top:15px;">tap to continue</p>
+  <p style="opacity:0.6">click anywhere</p>
 </div>
 
 <!-- SLIDE 3 -->
 <div class="slide fade" id="s3">
-  <div class="heart crack">❤️</div>
+  <div class="heart break" id="heart1">
+    <span class="left">❤️</span>
+    <span class="right">❤️</span>
+  </div>
   <p>This is what I broke…</p>
-  <button onclick="next(3,4)">continue</button>
+  <button onclick="go(3,4)">continue</button>
 </div>
 
 <!-- SLIDE 4 -->
 <div class="slide fade" id="s4">
   <p>Do you want to read more?</p>
-  <div style="margin-top:20px;">
-    <button onclick="next(4,5)">Yes</button>
-    <button id="noBtn">No</button>
-  </div>
+  <button onclick="go(4,5)">Yes</button>
+  <button id="noBtn">No</button>
 </div>
 
 <!-- SLIDE 5 -->
 <div class="slide fade" id="s5">
-  <div class="heart heal">❤️</div>
+  <div class="heart heal">
+    <span>❤️</span>
+  </div>
   <p>But I want to fix what I can.</p>
-  <button onclick="next(5,6)">continue</button>
+  <button onclick="go(5,6)">continue</button>
 </div>
 
 <!-- SLIDE 6 -->
 <div class="slide fade" id="s6">
-  <div class="scrollBox">
-    <p>
+  <div class="box">
 Bhott ho gya ab gussa itne din ho gyeee ab jaldi se maan jao meri rani ji meri cutie 🥧 uss din glti ho gyi thi bol diya tha maine i apologize for my mischievous mistake 😭 hope you will forgive me 🛐 toh mujhe maaf kro aage se nhi hoga aesa meri jaanuuu 💋<br><br>
+
 Voh promises bhi nibhane ki koshish kri maine baki tujhe lgta hai kharab kra hai maine toh voh bhi thik hai I accept sorry sb ke liye or Jo mai chup ho jata hun uske liye bhi 🛐<br><br>
+
 Ab koi ladai nhi krni hai apn ko mujhe bhi bhot bura lga maine tujhe aesa bola ho gya mujhe realise ab tu maaf krdeee mere ko pyar se rhenge fir acche man se 💋<br><br>
+
 Abhi tu so rhi hai toh ye site bna rha tere liyee hope so acchi lgegi tujhe or tu maaf bhi kr degi (Krna padega 🙂)<br><br>
+
 Lovee you meri darling 💋💋💋<br>
 Ab ni krenge ladai 😘
-    </p>
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="next(6,7)">maaf kiya</button>
-    </div>
+<br><br>
+<button onclick="go(6,7)">maaf kiya</button>
   </div>
 </div>
 
 <!-- SLIDE 7 -->
 <div class="slide fade" id="s7">
   <img src="cat2.jpg" style="width:240px;border-radius:25px;">
-  <h3 style="margin-top:20px;">Love you… always 🤍</h3>
+  <h3>Love you… always 🤍</h3>
 </div>
 
-<!-- MUSIC -->
-<audio id="bg" loop></audio>
-
 <script>
-const music = [
-  "https://cdn.pixabay.com/audio/2022/10/30/audio_8d1b7c.mp3",
-  "https://cdn.pixabay.com/audio/2022/11/02/audio_3b4c5c.mp3",
-  "https://cdn.pixabay.com/audio/2022/08/10/audio_9f6bcd.mp3",
-  "https://cdn.pixabay.com/audio/2023/03/15/audio_dreamy.mp3"
-];
+let music=document.getElementById("music");
+let started=false;
 
-let audio = document.getElementById("bg");
-let muted = false;
-
-function playMusic(i){
-  audio.src = music[i];
-  audio.play();
+function play(src){
+  music.src=src;
+  music.play();
 }
 
-document.getElementById("mute").onclick = ()=>{
-  muted = !muted;
-  audio.muted = muted;
-  document.getElementById("mute").innerText = muted ? "🔇" : "🔊";
-};
-
-function next(a,b){
-  document.getElementById("s"+a).classList.remove("active");
-  document.getElementById("s"+b).classList.add("active");
-  playMusic(b-1);
-}
-
-document.body.onclick = ()=>{
-  if(document.getElementById("s1").classList.contains("active")){
-    next(1,3);
-    playMusic(0);
+document.body.onclick=()=>{
+  if(!started){
+    started=true;
+    play("https://cdn.pixabay.com/audio/2022/10/30/audio_8d1b7c.mp3");
+    go(1,3);
   }
 };
 
-const noBtn = document.getElementById("noBtn");
-noBtn.addEventListener("mouseenter",()=>{
-  noBtn.style.transform = `translate(${Math.random()*200-100}px,${Math.random()*100-50}px)`;
-});
+function go(a,b){
+  document.getElementById("s"+a).classList.remove("active");
+  document.getElementById("s"+b).classList.add("active");
+
+  if(b==3) play("https://cdn.pixabay.com/audio/2022/11/02/audio_3b4c5c.mp3");
+  if(b==4) play("https://cdn.pixabay.com/audio/2022/08/10/audio_9f6bcd.mp3");
+  if(b==5) play("https://cdn.pixabay.com/audio/2023/03/15/audio_dreamy.mp3");
+  if(b==6) play("https://cdn.pixabay.com/audio/2022/09/14/audio_soft.mp3");
+  if(b==7) play("https://cdn.pixabay.com/audio/2022/10/18/audio_love.mp3");
+}
+
+const noBtn=document.getElementById("noBtn");
+noBtn.onmouseenter=()=>{
+  noBtn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*120-60}px)`;
+};
 </script>
 
 </body>
